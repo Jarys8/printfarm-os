@@ -93,6 +93,28 @@ Pricing is either `unitCost × (1 + markup%)` or margin mode
 `unitCost / (1 − margin%)`. Rush adds 25% to the unit price; a volume discount
 is applied to the batch, then tax is added for the client total.
 
+## Desktop and Android builds
+
+Prebuilt downloads are published on the
+[GitHub releases page](https://github.com/Jarys8/printfarm-os/releases):
+
+- `PrintFarm-OS-1.0.0-portable.exe` — Windows x64 portable app (no installer,
+  just run it)
+- `PrintFarm-OS-1.0.0.apk` — Android app (debug-signed, install with “Install
+  unknown apps” enabled)
+
+Build them yourself:
+
+```bash
+npm run dist:win    # -> release/PrintFarm-OS-1.0.0-portable.exe
+npm run android:apk # -> android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+Windows packaging uses Electron + electron-builder. Android packaging uses
+Capacitor and needs JDK 17 plus an Android SDK with platform 34 and build-tools
+34.0.0; set `JAVA_HOME` and `ANDROID_HOME`, or put `sdk.dir` in
+`android/local.properties`. See [docs/BUILD.md](docs/BUILD.md).
+
 ## Limitations
 
 - Single device: data is per browser profile and is not synced between devices.
