@@ -46,8 +46,10 @@ State is serialized as JSON with a `version` field. On load, missing sections ar
 merged with defaults so older backups remain usable. Import validates the shape
 before replacing state; invalid payloads are rejected with an error toast.
 
-Because storage is per-origin, the app is single-device by design. Use the JSON
-backup to move data (see [BACKUP.md](BACKUP.md)).
+A first launch with no saved state starts from `buildEmptyState(BLANK_SETTINGS)`:
+zero printers, spools, orders and ledger, with a blank farm identity. Demo data
+is only loaded on request. Because storage is per-origin, the app is single-device
+by design. Use the JSON backup to move data (see [BACKUP.md](BACKUP.md)).
 
 ## Cost model
 

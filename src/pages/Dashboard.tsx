@@ -196,9 +196,9 @@ export function Dashboard({
               {telemetry.printing.length
                 ? t('{n} machines extruding · {farm}', {
                     n: telemetry.printing.length,
-                    farm: state.settings.farmName,
+                    farm: state.settings.farmName || t('Your farm'),
                   })
-                : t('{farm} is idle and ready', { farm: state.settings.farmName })}
+                : t('{farm} is idle and ready', { farm: state.settings.farmName || t('Your farm') })}
             </h2>
             <p className="mt-1 text-xs text-muted">
               {t('{printers} printers · {spools} spools · {orders} orders · {grams} on shelf', {

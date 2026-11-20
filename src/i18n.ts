@@ -599,6 +599,14 @@ const CS: Record<string, string> = {
   'Batch complete, revenue logged': 'Dávka dokončena, obrat zaznamenán',
   'Service logged at {hours}h': 'Servis zapsán v {hours} h',
   'Save printer': 'Uložit tiskárnu',
+  Technology: 'Technologie',
+  'FDM / FFF': 'FDM / FFF',
+  'Resin (SLA / MSLA)': 'Resin (SLA / MSLA)',
+  'Resin type / VAT': 'Typ resinu / vana',
+  Resin: 'Resin',
+  'Your farm': 'Vaše farma',
+  'Resin stock is tracked in grams. Nozzle and bed temperatures do not apply to resin.':
+    'Resin se eviduje v gramech. Teploty trysky a podložky se u resinu nepoužívají.',
   printers: 'tiskárny',
   spools: 'cívky',
   'Machine economics feed electricity and depreciation costs.':

@@ -123,6 +123,22 @@ function LabelsModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, initialIds.join(',')]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
   const chosen = spools.filter((s) => selected.includes(s.id));
   const copyCount = (id: string) => Math.max(1, Math.min(20, copies[id] ?? 1));
   const totalLabels = chosen.reduce((sum, s) => sum + copyCount(s.id), 0);
@@ -159,7 +175,9 @@ function LabelsModal({
             {s.material} · {s.colorName}
           </p>
           <p className="truncate font-mono" style={{ fontSize: '5.5pt' }}>
-            {s.nozzleTemp}° / {s.bedTemp}° · {s.diameter}mm
+            {s.material === 'Resin'
+              ? `${s.remainingGrams} g resin`
+              : `${s.nozzleTemp}° / ${s.bedTemp}° · ${s.diameter}mm`}
           </p>
           <p className="truncate font-mono" style={{ fontSize: '5pt', color: '#71717A' }}>
             {farmName}
@@ -831,32 +849,40 @@ export function Inventory({
               onChange={(e) => setDraft({ ...draft, costPerKg: Math.max(0, num(e.target.value)) })}
             />
           </Field>
-          <Field label={t('Diameter (mm)')}>
-            <select
-              className="field"
-              value={draft.diameter}
-              onChange={(e) => setDraft({ ...draft, diameter: Number(e.target.value) === 2.85 ? 2.85 : 1.75 })}
-            >
-              <option value={1.75}>1.75 mm</option>
-              <option value={2.85}>2.85 mm</option>
-            </select>
-          </Field>
-          <Field label={t('Nozzle temp (°C)')}>
-            <input
-              type="number"
-              className="field font-mono tabular-nums"
-              value={draft.nozzleTemp}
-              onChange={(e) => setDraft({ ...draft, nozzleTemp: num(e.target.value) })}
-            />
-          </Field>
-          <Field label={t('Bed temp (°C)')}>
-            <input
-              type="number"
-              className="field font-mono tabular-nums"
-              value={draft.bedTemp}
-              onChange={(e) => setDraft({ ...draft, bedTemp: num(e.target.value) })}
-            />
-          </Field>
+          {draft.material === 'Resin' ? (
+            <div className="sm:col-span-2 rounded-lg border border-line bg-raised/60 p-2.5 text-[11px] leading-relaxed text-muted">
+              {t('Resin stock is tracked in grams. Nozzle and bed temperatures do not apply to resin.')}
+            </div>
+          ) : (
+            <>
+              <Field label={t('Diameter (mm)')}>
+                <select
+                  className="field"
+                  value={draft.diameter}
+                  onChange={(e) => setDraft({ ...draft, diameter: Number(e.target.value) === 2.85 ? 2.85 : 1.75 })}
+                >
+                  <option value={1.75}>1.75 mm</option>
+                  <option value={2.85}>2.85 mm</option>
+                </select>
+              </Field>
+              <Field label={t('Nozzle temp (°C)')}>
+                <input
+                  type="number"
+                  className="field font-mono tabular-nums"
+                  value={draft.nozzleTemp}
+                  onChange={(e) => setDraft({ ...draft, nozzleTemp: num(e.target.value) })}
+                />
+              </Field>
+              <Field label={t('Bed temp (°C)')}>
+                <input
+                  type="number"
+                  className="field font-mono tabular-nums"
+                  value={draft.bedTemp}
+                  onChange={(e) => setDraft({ ...draft, bedTemp: num(e.target.value) })}
+                />
+              </Field>
+            </>
+          )}
           <Field label={t('Location')}>
             <input
               className="field"

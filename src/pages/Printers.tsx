@@ -14,12 +14,13 @@ import {
 } from 'lucide-react';
 import { useFarm } from '../context/FarmContext';
 import { useT } from '../hooks/useT';
-import type { MaintenanceTask, Printer, PrinterStatus } from '../types/farm';
+import type { MaintenanceTask, Printer, PrinterStatus, PrinterTechnology } from '../types/farm';
 import { PRINTER_STATUS_META, formatDate, formatGrams, formatHours, formatNumber, machineDepreciation, percent, uid } from '../utils/format';
 import { Badge, Button, Card, EmptyState, Field, Modal, Progress, SectionTitle, cn } from '../components/ui';
 
 interface PrinterDraft {
   name: string;
+  technology: PrinterTechnology;
   model: string;
   buildVolume: string;
   powerDrawW: number;
@@ -40,6 +41,7 @@ const num = (v: string): number => {
 function emptyPrinterDraft(): PrinterDraft {
   return {
     name: '',
+    technology: 'fdm',
     model: 'Bambu Lab P1S',
     buildVolume: '256 × 256 × 256 mm',
     powerDrawW: 350,
@@ -69,6 +71,7 @@ export function Printers() {
     setEditingPrinter(printer);
     setPrinterDraft({
       name: printer.name,
+      technology: printer.technology ?? 'fdm',
       model: printer.model,
       buildVolume: printer.buildVolume,
       powerDrawW: printer.powerDrawW,
@@ -86,6 +89,7 @@ export function Printers() {
     if (!printerDraft) return;
     const printer: Printer = {
       id: editingPrinter?.id ?? uid('printer'),
+      technology: printerDraft.technology,
       name: printerDraft.name.trim() || 'New printer',
       model: printerDraft.model.trim() || 'Custom build',
       buildVolume: printerDraft.buildVolume,
@@ -192,6 +196,7 @@ export function Printers() {
                       <h3 className="truncate text-[13px] font-semibold text-ink">{printer.name}</h3>
                       <p className="truncate text-[11px] text-muted">
                         {printer.model} · {printer.buildVolume}
+                        {printer.technology === 'resin' ? ` · ${t('Resin')}` : ''}
                       </p>
                     </div>
                     <Badge tone={status.tone} dot>
@@ -201,7 +206,9 @@ export function Printers() {
 
                   <div className="mt-3 grid grid-cols-2 gap-1.5 rounded-lg border border-line bg-raised/60 p-2">
                     <div>
-                      <p className="text-[9px] uppercase tracking-wider text-muted">{t('Nozzle')}</p>
+                      <p className="text-[9px] uppercase tracking-wider text-muted">
+                        {printer.technology === 'resin' ? t('Resin type / VAT') : t('Nozzle')}
+                      </p>
                       <p className="truncate font-mono text-[10px] text-ink">{printer.nozzle}</p>
                     </div>
                     <div>
@@ -427,6 +434,27 @@ export function Printers() {
       >
         {printerDraft && (
           <div className="grid gap-2.5 sm:grid-cols-2">
+            <Field label={t('Technology')}>
+              <select
+                className="field"
+                value={printerDraft.technology}
+                onChange={(e) =>
+                  setPrinterDraft({
+                    ...printerDraft,
+                    technology: e.target.value as PrinterTechnology,
+                    nozzle:
+                      e.target.value === 'resin' && printerDraft.nozzle === '0.4 mm hardened steel'
+                        ? 'Standard 8K resin'
+                        : e.target.value === 'fdm' && printerDraft.nozzle === 'Standard 8K resin'
+                          ? '0.4 mm hardened steel'
+                          : printerDraft.nozzle,
+                  })
+                }
+              >
+                <option value="fdm">{t('FDM / FFF')}</option>
+                <option value="resin">{t('Resin (SLA / MSLA)')}</option>
+              </select>
+            </Field>
             <Field label={t('Printer name')}>
               <input className="field" value={printerDraft.name} onChange={(e) => setPrinterDraft({ ...printerDraft, name: e.target.value })} placeholder="Bambu Lab P1S #01" />
             </Field>
@@ -436,8 +464,13 @@ export function Printers() {
             <Field label={t('Build volume')}>
               <input className="field" value={printerDraft.buildVolume} onChange={(e) => setPrinterDraft({ ...printerDraft, buildVolume: e.target.value })} placeholder="256 × 256 × 256 mm" />
             </Field>
-            <Field label={t('Nozzle installed')}>
-              <input className="field" value={printerDraft.nozzle} onChange={(e) => setPrinterDraft({ ...printerDraft, nozzle: e.target.value })} placeholder="0.4 mm hardened steel" />
+            <Field label={printerDraft.technology === 'resin' ? t('Resin type / VAT') : t('Nozzle installed')}>
+              <input
+                className="field"
+                value={printerDraft.nozzle}
+                onChange={(e) => setPrinterDraft({ ...printerDraft, nozzle: e.target.value })}
+                placeholder={printerDraft.technology === 'resin' ? 'Standard 8K resin' : '0.4 mm hardened steel'}
+              />
             </Field>
             <Field label={t('Average power draw (W)')}>
               <input

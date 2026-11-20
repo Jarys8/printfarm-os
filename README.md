@@ -17,9 +17,10 @@ npm run build    # typecheck + production bundle in dist/
 npm run preview  # serve the production build locally
 ```
 
-Node 18+ is recommended. The app ships with demo data (3 printers, 6 spools,
-4 orders, presets and a ledger), so it is usable immediately. A factory reset in
-**Settings → Data & backups** clears everything.
+Node 18+ is recommended. On first launch the farm is **empty** — no demo
+printers, spools or orders. Add your machines and material, or load the sample
+farm from **Settings → Data & backups → Load demo**. A factory reset clears
+everything again.
 
 ## What it does
 
@@ -37,9 +38,10 @@ Node 18+ is recommended. The app ships with demo data (3 printers, 6 spools,
 - **Orders** — Kanban pipeline (quote sent → queued → printing → post-processing
   → ready) with drag and drop, per-piece print logging that deducts filament
   from the linked spool, payment status cycling, and invoice/quote documents.
-- **Printers** — machine specs, odometer, loaded spool, preventive maintenance
-  intervals with health bars, service logging and history. Camera monitoring is
-  intentionally not part of the app.
+- **Printers** — FDM and resin (SLA/MSLA) machines, specs, odometer, loaded
+  spool or resin vat, preventive maintenance intervals with health bars, service
+  logging and history. Resin printers expose a resin type/VAT field instead of a
+  nozzle. Camera monitoring is intentionally not part of the app.
 - **Settings** — farm identity and branding, financial defaults, light/dark
   theme, **English / Čeština**, JSON backup and restore, orders CSV export, demo
   data loading and factory reset.

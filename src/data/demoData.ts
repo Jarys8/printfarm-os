@@ -509,6 +509,17 @@ export function buildEmptyState(settings: FarmSettings = DEFAULT_SETTINGS): Farm
   };
 }
 
+export const BLANK_SETTINGS: FarmSettings = {
+  ...DEFAULT_SETTINGS,
+  farmName: '',
+  taxId: '',
+  address: '',
+  logoMonogram: '',
+  bankAccount: '',
+  paymentUrl: '',
+  paymentTerms: '',
+};
+
 export const DEMO_QUANTITIES = {
   printers: 3,
   spools: 6,

@@ -16,7 +16,7 @@ import type {
   ToastKind,
   OrderStatus,
 } from '../types/farm';
-import { buildDemoState, buildEmptyState, DEFAULT_SETTINGS } from '../data/demoData';
+import { BLANK_SETTINGS, buildDemoState, buildEmptyState, DEFAULT_SETTINGS } from '../data/demoData';
 import { formatMoney, round, uid } from '../utils/format';
 import { validateImportedState } from '../utils/exporters';
 
@@ -515,9 +515,9 @@ function loadInitialState(): FarmState {
       if (merged) return merged;
     }
   } catch {
-    /* corrupted storage — fall through to demo */
+    /* corrupted storage — fall through to a clean farm */
   }
-  return buildDemoState();
+  return buildEmptyState(BLANK_SETTINGS);
 }
 
 export function FarmProvider({ children }: { children: React.ReactNode }) {

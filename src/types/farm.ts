@@ -4,6 +4,8 @@ export type FilamentMaterial = 'PLA' | 'PETG' | 'ASA' | 'ABS' | 'TPU' | 'PA-CF' 
 
 export type PrinterStatus = 'printing' | 'idle' | 'bed_clearing' | 'maintenance';
 
+export type PrinterTechnology = 'fdm' | 'resin';
+
 export type OrderStatus = 'quote_sent' | 'queued' | 'printing' | 'post_processing' | 'ready';
 
 export type PaymentStatus = 'unpaid' | 'deposit' | 'paid';
@@ -40,6 +42,7 @@ export interface ActiveJob {
 
 export interface Printer {
   id: string;
+  technology?: PrinterTechnology;
   name: string;
   model: string;
   buildVolume: string;

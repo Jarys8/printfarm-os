@@ -20,9 +20,9 @@ JSON to restore data.
 
 ## Demo data
 
-**Load demo** replaces the current data with the built-in sample farm (3
-printers, 6 spools, 4 orders, presets and ledger). This is destructive; export a
-backup first if the current data matters.
+A fresh install starts with a blank farm. **Load demo** replaces the current data
+with the built-in sample farm (3 printers, 6 spools, 4 orders, presets and
+ledger). This is destructive; export a backup first if the current data matters.
 
 ## Factory reset
 

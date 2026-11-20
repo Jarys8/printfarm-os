@@ -29,10 +29,12 @@
 
 ## Inventory
 
-- Spool list with search and material filter, color dot, remaining grams,
+- Filament **and resin** spools with search and material filter, color dot, remaining grams,
   percentage bar, low-stock badge, cost per kg and storage location.
-- Add/edit spool: brand, material, color name/hex, diameter, total and remaining
-  weight, cost per kg, nozzle/bed temperature, tare weight, location, notes.
+- Add/edit spool: brand, material (including Resin), color name/hex, diameter,
+  total and remaining weight, cost per kg, nozzle/bed temperature, tare weight,
+  location, notes. Resin stock is tracked in grams and hides the FDM temperature
+  and diameter fields.
 - Weigh a spool on a scale: gross weight minus tare becomes the new remaining
   weight.
 - Adjust remaining weight by deducting used material or adding stock.
@@ -57,8 +59,8 @@
 
 ## Printers
 
-- Fleet list with model, nozzle, power draw, depreciation per hour, odometer,
-  loaded spool and maintenance health.
+- Fleet list with FDM **or resin** technology, model, nozzle/resin type, power
+  draw, depreciation per hour, odometer, loaded spool and maintenance health.
 - Status control (idle/ready, printing, bed clearing, maintenance).
 - Maintenance tasks per printer with interval and last-done hours; health is
   computed from the odometer; logging service resets the interval and appends to
