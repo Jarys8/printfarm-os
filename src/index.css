@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --subtle: #eceef1;
+  --border: #dfe1e6;
+  --text: #18181b;
+  --muted: #6b7280;
+  color-scheme: light;
+}
+
+html.dark {
+  --bg: #09090b;
+  --card: #18181b;
+  --subtle: #1f1f23;
+  --border: #27272a;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+  body {
+    @apply bg-surface text-ink font-sans antialiased;
+    overscroll-behavior-y: none;
+  }
+  ::selection {
+    background: rgba(249, 115, 22, 0.3);
+  }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+  :focus-visible {
+    outline: 2px solid rgba(249, 115, 22, 0.7);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-line bg-panel;
+  }
+  .hairline {
+    @apply border-line;
+  }
+  .label {
+    @apply text-[10px] font-semibold uppercase tracking-[0.14em] text-muted;
+  }
+  .field {
+    @apply w-full rounded-lg border border-line bg-raised px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-maker/70 focus:outline-none focus:ring-2 focus:ring-maker/20 transition disabled:opacity-50;
+  }
+  .tech-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .scroll-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Drag cursor states, scan line */
+.scanline {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+  box-shadow: 0 0 18px #06b6d4;
+  animation: scanmove 2.2s ease-in-out infinite;
+}
+@keyframes scanmove {
+  0%,
+  100% {
+    top: 16%;
+    opacity: 0.35;
+  }
+  50% {
+    top: 84%;
+    opacity: 1;
+  }
+}
+
+/* ============ PRINT ============ */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .app-shell {
+    display: none !important;
+  }
+  .print-portal {
+    display: block !important;
+    position: static !important;
+    inset: auto !important;
+    z-index: auto !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .print-portal .print-hidden {
+    display: none !important;
+  }
+  .print-portal .print-sheet {
+    box-shadow: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .label-page {
+    break-after: page;
+  }
+}

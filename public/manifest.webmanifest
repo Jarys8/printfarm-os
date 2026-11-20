@@ -1,0 +1,38 @@
+{
+  "name": "PrintFarm OS — 3D Printing Farm OS",
+  "short_name": "PrintFarm",
+  "description": "Offline-first operating system for 3D printing farms: quoting, filament inventory, orders, maintenance and financial analytics.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#09090B",
+  "background_color": "#09090B",
+  "categories": ["productivity", "business", "utilities"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='104' fill='%2309090B'/%3E%3Cpath d='M128 176h256v64H128z' fill='%23F97316'/%3E%3Cpath d='M160 176v-40h192v40' fill='none' stroke='%23F97316' stroke-width='24' stroke-linejoin='round'/%3E%3Cpath d='M256 240v48' stroke='%2306B6D4' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M256 288l-30 40h60z' fill='%2306B6D4'/%3E%3Cg stroke='%23F97316' stroke-width='14' stroke-linecap='round'%3E%3Cpath d='M176 352h160'/%3E%3Cpath d='M188 384h136'/%3E%3Cpath d='M204 416h104'/%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='104' fill='%2309090B'/%3E%3Cpath d='M128 176h256v64H128z' fill='%23F97316'/%3E%3Cpath d='M160 176v-40h192v40' fill='none' stroke='%23F97316' stroke-width='24' stroke-linejoin='round'/%3E%3Cpath d='M256 240v48' stroke='%2306B6D4' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M256 288l-30 40h60z' fill='%2306B6D4'/%3E%3Cg stroke='%23F97316' stroke-width='14' stroke-linecap='round'%3E%3Cpath d='M176 352h160'/%3E%3Cpath d='M188 384h136'/%3E%3Cpath d='M204 416h104'/%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "New Quote", "short_name": "Quote", "url": "/?tab=calculator" },
+    { "name": "Orders", "short_name": "Orders", "url": "/?tab=orders" },
+    { "name": "Inventory", "short_name": "Spools", "url": "/?tab=inventory" }
+  ]
+}
