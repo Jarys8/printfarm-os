@@ -264,7 +264,7 @@ export function Layout({
 
       {/* Mobile bottom nav */}
       <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-panel/95 backdrop-blur md:hidden">
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-6">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const active = tab === item.id;
@@ -275,16 +275,30 @@ export function Layout({
                 onClick={() => onNavigate(item.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'relative flex min-h-[56px] flex-col items-center justify-center gap-0.5 py-1.5 text-[10px] font-medium transition-colors',
+                  'relative flex min-h-[56px] flex-col items-center justify-center gap-0.5 py-1.5 text-[9px] font-medium transition-colors',
                   active ? 'text-orange-500 dark:text-orange-400' : 'text-muted',
                 )}
               >
                 {active && <span className="absolute top-0 h-[2px] w-8 rounded-b bg-maker" />}
-                <Icon size={20} strokeWidth={active ? 2.3 : 1.8} />
+                <Icon size={19} strokeWidth={active ? 2.3 : 1.8} />
                 <span>{t(item.short)}</span>
               </button>
             );
           })}
+          <button
+            type="button"
+            onClick={onOpenSettings}
+            aria-current={tab === 'settings' ? 'page' : undefined}
+            aria-label={t('Farm settings')}
+            className={cn(
+              'relative flex min-h-[56px] flex-col items-center justify-center gap-0.5 py-1.5 text-[9px] font-medium transition-colors',
+              tab === 'settings' ? 'text-orange-500 dark:text-orange-400' : 'text-muted',
+            )}
+          >
+            {tab === 'settings' && <span className="absolute top-0 h-[2px] w-8 rounded-b bg-maker" />}
+            <Settings size={19} strokeWidth={tab === 'settings' ? 2.3 : 1.8} />
+            <span>{t('Settings')}</span>
+          </button>
         </div>
       </nav>
 
