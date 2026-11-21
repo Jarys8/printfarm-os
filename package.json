@@ -1,7 +1,7 @@
 {
   "name": "printfarm-os",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Offline-first operating system for 3D-printing farms",
   "author": "Jarys8",
   "main": "electron/main.cjs",

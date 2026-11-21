@@ -12,7 +12,7 @@ npm install
 npm run dist:win
 ```
 
-Output: `release/PrintFarm-OS-1.0.0-portable.exe` (about 75 MB, Windows x64).
+Output: `release/PrintFarm-OS-1.0.1-portable.exe` (about 75 MB, Windows x64).
 
 The script disables `signAndEditExecutable` so packaging also works on Windows
 accounts without the symlink privilege needed by electron-builder's signing

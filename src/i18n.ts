@@ -526,7 +526,7 @@ const CS: Record<string, string> = {
   'Interface language': 'Jazyk rozhraní',
   'Changes apply immediately across the app, including printed documents.':
     'Změny se okamžitě projeví v celé aplikaci včetně tisknutelných dokumentů.',
-  'PrintFarm OS v1.0 · single-device offline mode': 'PrintFarm OS v1.0 · offline režim jednoho zařízení',
+  'PrintFarm OS v1.0.1 · single-device offline mode': 'PrintFarm OS v1.0.1 · offline režim jednoho zařízení',
   'Dark': 'Tmavý',
   'Light': 'Světlý',
   'system ready': 'systém připraven',

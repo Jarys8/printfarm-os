@@ -98,15 +98,15 @@ is applied to the batch, then tax is added for the client total.
 Prebuilt downloads are published on the
 [GitHub releases page](https://github.com/Jarys8/printfarm-os/releases):
 
-- `PrintFarm-OS-1.0.0-portable.exe` — Windows x64 portable app (no installer,
+- `PrintFarm-OS-1.0.1-portable.exe` — Windows x64 portable app (no installer,
   just run it)
-- `PrintFarm-OS-1.0.0.apk` — Android app (debug-signed, install with “Install
+- `PrintFarm-OS-1.0.1.apk` — Android app (debug-signed, install with “Install
   unknown apps” enabled)
 
 Build them yourself:
 
 ```bash
-npm run dist:win    # -> release/PrintFarm-OS-1.0.0-portable.exe
+npm run dist:win    # -> release/PrintFarm-OS-1.0.1-portable.exe
 npm run android:apk # -> android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
