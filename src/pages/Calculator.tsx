@@ -224,12 +224,12 @@ export function Calculator({ onOrderCreated }: { onOrderCreated: () => void }) {
         const existing = f.filaments;
         const rows: FilamentRow[] = gramsList.map((grams, i) => {
           const baseLine = existing[i] ?? existing[0];
+          const targetMaterial = normalizeMaterial(data.material);
           const candidate =
-            state.spools.find(
-              (s) => s.id === baseLine?.spoolId && s.material === normalizeMaterial(data.material),
-            ) ??
-            state.spools.find((s) => s.material === normalizeMaterial(data.material)) ??
-            state.spools[0];
+            state.spools.find((s) => s.id === baseLine?.spoolId && s.material === targetMaterial) ??
+            state.spools.find((s) => s.material === targetMaterial) ??
+            // Never price a resin plate off an FDM spool — fall back to custom cost.
+            (targetMaterial === 'Resin' ? undefined : state.spools[0]);
           return {
             key: uid('line'),
             spoolId: candidate?.id ?? '',
@@ -255,7 +255,15 @@ export function Calculator({ onOrderCreated }: { onOrderCreated: () => void }) {
         type: 'toast',
         kind: 'success',
         message: t('Slicer metadata imported'),
-        detail: `${data.source} · ${formatGrams(data.grams)} · ${formatDuration(data.seconds)} · ${data.layerHeight ?? '?'} mm`,
+        detail: [
+          data.source,
+          data.grams > 0 ? formatGrams(data.grams) : null,
+          data.seconds > 0 ? formatDuration(data.seconds) : null,
+          data.layers ? `${data.layers} layers` : null,
+          `${data.layerHeight ?? '?'} mm`,
+        ]
+          .filter(Boolean)
+          .join(' · '),
       });
     },
     [dispatch, state.spools, t],
@@ -489,7 +497,7 @@ export function Calculator({ onOrderCreated }: { onOrderCreated: () => void }) {
             <input
               ref={fileInput}
               type="file"
-              accept=".gcode,.gco,.3mf"
+              accept=".gcode,.gco,.3mf,.ctb,.cbddlp,.goo,.photon,.photons,.pwmx,.pwms,.pws,.pm3,.pm3m,.sl1,.sl1s"
               className="hidden"
               onChange={(e) => {
                 void handleFiles(e.target.files);
@@ -504,15 +512,17 @@ export function Calculator({ onOrderCreated }: { onOrderCreated: () => void }) {
                 <p className="text-sm font-semibold text-ink">{t('Drop a sliced file to auto-fill the quote')}</p>
                 <p className="mt-0.5 text-[11px] leading-relaxed text-muted">
                   {t(
-                    '.gcode or .3mf from PrusaSlicer, OrcaSlicer, Bambu Studio or Cura. Print time, filament weight, layer height and material are read locally in your browser — no upload.',
+                    '.gcode / .3mf from FDM slicers, or .ctb / .goo / .photon / .pwmx / .sl1 from Chitubox, Lychee, Elegoo, Anycubic or PrusaSlicer. Print time, material and layer height are read locally in your browser — no upload.',
                   )}
                 </p>
                 {parsed && (
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
                     <Badge tone="maker">{parsed.source}</Badge>
-                    <Badge tone="muted">{formatGrams(parsed.grams)}</Badge>
-                    <Badge tone="muted">{formatDuration(parsed.seconds)}</Badge>
+                    {parsed.grams > 0 && <Badge tone="muted">{formatGrams(parsed.grams)}</Badge>}
+                    {parsed.seconds > 0 && <Badge tone="muted">{formatDuration(parsed.seconds)}</Badge>}
                     {parsed.layerHeight && <Badge tone="muted">{parsed.layerHeight} mm</Badge>}
+                    {parsed.layers ? <Badge tone="muted">{t('{n} layers', { n: formatNumber(parsed.layers) })}</Badge> : null}
+                    {parsed.resinMl ? <Badge tone="muted">{`${formatNumber(Math.round(parsed.resinMl))} mL`}</Badge> : null}
                     {parsed.nozzle && <Badge tone="muted">{parsed.nozzle} mm nozzle</Badge>}
                   </div>
                 )}

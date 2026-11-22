@@ -35,6 +35,13 @@ html.dark {
     @apply bg-surface text-ink font-sans antialiased;
     overscroll-behavior-y: none;
   }
+  /* Grid and flex children default to min-width:auto. One intrinsically wide
+     child (a recharts SVG, a long token) then stretches the whole page, which
+     is what clipped the layout on phones. Let those children shrink instead. */
+  .grid > *,
+  .flex > * {
+    min-width: 0;
+  }
   ::selection {
     background: rgba(249, 115, 22, 0.3);
   }

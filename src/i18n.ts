@@ -185,8 +185,9 @@ const CS: Record<string, string> = {
 
   // ---- calculator ----
   'Drop a sliced file to auto-fill the quote': 'Přetáhněte naslicované soubory pro vyplnění kalkulace',
-  '.gcode or .3mf from PrusaSlicer, OrcaSlicer, Bambu Studio or Cura. Print time, filament weight, layer height and material are read locally in your browser — no upload.':
-    '.gcode nebo .3mf z PrusaSlicer, OrcaSlicer, Bambu Studio či Cura. Čas tisku, hmotnost filamentu, výška vrstvy a materiál se čtou lokálně v prohlížeči — bez nahrávání.',
+  '.gcode / .3mf from FDM slicers, or .ctb / .goo / .photon / .pwmx / .sl1 from Chitubox, Lychee, Elegoo, Anycubic or PrusaSlicer. Print time, material and layer height are read locally in your browser — no upload.':
+    '.gcode / .3mf z FDM slicerů, nebo .ctb / .goo / .photon / .pwmx / .sl1 z Chitubox, Lychee, Elegoo, Anycubic či PrusaSlicer. Čas tisku, materiál a výška vrstvy se čtou lokálně v prohlížeči — bez nahrávání.',
+  '{n} layers': '{n} vrstev',
   'Browse': 'Procházet',
   'Job': 'Zakázka',
   'What are we making, for whom, and how many?': 'Co vyrábíme, pro koho a kolik?',
@@ -526,7 +527,7 @@ const CS: Record<string, string> = {
   'Interface language': 'Jazyk rozhraní',
   'Changes apply immediately across the app, including printed documents.':
     'Změny se okamžitě projeví v celé aplikaci včetně tisknutelných dokumentů.',
-  'PrintFarm OS v1.0.1 · single-device offline mode': 'PrintFarm OS v1.0.1 · offline režim jednoho zařízení',
+  'PrintFarm OS v1.0.2 · single-device offline mode': 'PrintFarm OS v1.0.2 · offline režim jednoho zařízení',
   'Dark': 'Tmavý',
   'Light': 'Světlý',
   'system ready': 'systém připraven',

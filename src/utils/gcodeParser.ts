@@ -1,4 +1,5 @@
 import JSZip from 'jszip';
+import { isResinSlicerName, parseResinFile } from './resinParser';
 
 export interface ParsedSlicerFile {
   fileName: string;
@@ -11,6 +12,12 @@ export interface ParsedSlicerFile {
   material: string;
   notes: string[];
   filamentGrams?: number[];
+  technology?: 'fdm' | 'resin';
+  layers?: number;
+  resinMl?: number;
+  machine?: string;
+  resolution?: string;
+  buildVolume?: string;
 }
 
 const MATERIALS = ['PLA', 'PETG', 'ASA', 'ABS', 'TPU', 'PA-CF', 'PC', 'Resin'] as const;
@@ -257,6 +264,9 @@ async function parse3mf(file: File): Promise<ParsedSlicerFile> {
 }
 
 export async function parseSlicerFile(file: File): Promise<ParsedSlicerFile> {
+  if (isResinSlicerName(file.name)) {
+    return parseResinFile(file);
+  }
   if (file.size > 120 * 1024 * 1024) {
     throw new Error('File is larger than 120 MB. Export a smaller plate or paste values manually.');
   }

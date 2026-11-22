@@ -374,7 +374,7 @@ export function Settings({ onBack }: { onBack: () => void }) {
 
       <Card className="flex flex-wrap items-center justify-between gap-2 p-3">
         <div className="flex items-center gap-2 text-[10px] text-muted">
-          <RefreshCw size={12} /> {t('PrintFarm OS v1.0.1 · single-device offline mode')}
+          <RefreshCw size={12} /> {t('PrintFarm OS v1.0.2 · single-device offline mode')}
         </div>
         <div className="flex items-center gap-1.5">
           <Badge tone={state.theme === 'dark' ? 'muted' : 'maker'}>
